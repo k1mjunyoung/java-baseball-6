@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
+
     private List<Integer> computerNums;
+
     public Application(){
         computerNums = getComputerNums();
     }
+
     private List<Integer> getComputerNums() {
         List<Integer> computerNums = new ArrayList<>();
 
@@ -60,7 +63,7 @@ public class Application {
         int ball = 0;
 
         for (int i = 0; i < 3; i++) {
-            if (playerNums.contains(computerNums.get(i))) {
+            if (playerNums.contains(computerNums.get(i)) && !(computerNums.get(i).equals(playerNums.get(i)))) {
                 ball++;
             }
         }
@@ -73,30 +76,45 @@ public class Application {
 
         // 게임 시작
         System.out.println("숫자 야구 게임을 시작합니다.");
+        List<Integer> computerNums = getComputerNums();
+//        for (int i = 0; i < 3; i ++) {
+//            System.out.print(computerNums.get(i));
+//        }
 
         // 게임 진행
         while (gameStart.equals("1")) {
             // 임의 숫자 생성
-            List<Integer> computerNums = getComputerNums();
+
 
             // 플레이어 입력
             System.out.print("숫자를 입력해주세요 : ");
-            String input = Console.readLine();
+            String input = (Console.readLine());
+
+            if (input.length() != 3) {
+                throw new IllegalArgumentException();
+            }
 
             List<Integer> playerNums = parseInput(input);
             int strike = getStrike(computerNums, playerNums);
             int ball = getBall(computerNums, playerNums);
 
             if (strike == 3) {
+                System.out.println(strike + "스트라이크");
                 System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
                 System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
                 gameStart = Console.readLine();
+                computerNums = getComputerNums();
+//                for (int i = 0; i < 3; i ++) {
+//                    System.out.print(computerNums.get(i));
+//                }
             } else if (strike > 0 && ball > 0){
                 System.out.println(ball + "볼 " + strike + "스트라이크");
             } else if (strike > 0 && ball == 0) {
                 System.out.println(strike + "스트라이크");
             } else if (strike == 0 && ball > 0) {
                 System.out.println(ball + "볼");
+            } else {
+                System.out.println("낫싱");
             }
         }
     }
