@@ -7,12 +7,6 @@ import java.util.List;
 
 public class Application {
 
-    private List<Integer> computerNums;
-
-    public Application(){
-        computerNums = getComputerNums();
-    }
-
     private List<Integer> getComputerNums() {
         List<Integer> computerNums = new ArrayList<>();
 
@@ -103,10 +97,14 @@ public class Application {
                 System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
                 System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
                 gameStart = Console.readLine();
-                computerNums = getComputerNums();
-//                for (int i = 0; i < 3; i ++) {
-//                    System.out.print(computerNums.get(i));
-//                }
+                if (!gameStart.equals("1")) {
+                    break;
+                } else {
+                    computerNums = getComputerNums();
+                    for (int i = 0; i < 3; i ++) {
+                        System.out.print(computerNums.get(i));
+                    }
+                }
             } else if (strike > 0 && ball > 0){
                 System.out.println(ball + "볼 " + strike + "스트라이크");
             } else if (strike > 0 && ball == 0) {
